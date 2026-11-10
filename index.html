@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi — Transit Social Network</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass {
+      background: rgba(18, 22, 34, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-[#0b0e14] text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-rose-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 bg-[#0e121b]/80 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-xl mx-auto px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-rose-500 to-amber-400 flex items-center justify-center font-bold text-white shadow-lg shadow-rose-500/20">
+          S
+        </div>
+        <span class="font-extrabold tracking-tight text-lg bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+          Sushi
+        </span>
+      </div>
+      <div class="flex items-center space-x-2 text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-1 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Gateway Live</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-xl w-full mx-auto px-5 py-8 flex-1">
+    
+    <!-- Hero Text -->
+    <div class="mb-8">
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
+        Meet aligned minds on your journey.
+      </h1>
+      <p class="text-sm text-slate-400">
+        Enter your PNR to instantly verify transit and connect with professionals, creatives, and co-travelers on your train.
+      </p>
+    </div>
+
+    <!-- Check-In Card Form -->
+    <div id="checkin-container" class="glass rounded-2xl p-6 shadow-2xl space-y-6">
+      
+      <!-- PNR Input -->
+      <div>
+        <label for="pnr" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+          Indian Railways PNR Number
+        </label>
+        <div class="relative">
+          <input 
+            type="text" 
+            id="pnr" 
+            maxlength="10" 
+            placeholder="10-digit PNR (e.g. 9999999991)" 
+            class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-4 py-3.5 text-white font-mono tracking-wider focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all placeholder:text-slate-600 text-sm"
+          >
+          <span class="absolute right-3.5 top-3.5 text-xs text-slate-500 font-mono" id="pnr-counter">0/10</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1">
+          <span>🔒 Ephemeral encryption. Seat numbers are never publicly disclosed.</span>
+        </p>
+      </div>
+
+      <!-- Identity Inputs -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Display Name</label>
+          <input type="text" id="real_name" placeholder="Your name or handle" class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Age</label>
+            <input type="number" id="age" min="16" max="99" value="25" class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-3 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Gender</label>
+            <select id="gender" class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-2 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intent Mode Selector -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Transit Intent Mode</label>
+        <div class="grid grid-cols-3 gap-2" id="intent-group">
+          <button type="button" data-intent="Networking" class="intent-btn active bg-rose-500/10 border border-rose-500 text-rose-400 text-xs font-medium py-2.5 px-3 rounded-xl transition-all">
+            💼 Network
+          </button>
+          <button type="button" data-intent="Casual" class="intent-btn bg-[#121722] border border-slate-700/60 text-slate-400 text-xs font-medium py-2.5 px-3 rounded-xl transition-all hover:border-slate-500">
+            ☕ Social
+          </button>
+          <button type="button" data-intent="Dating" class="intent-btn bg-[#121722] border border-slate-700/60 text-slate-400 text-xs font-medium py-2.5 px-3 rounded-xl transition-all hover:border-slate-500">
+            ✨ Dating
+          </button>
+        </div>
+      </div>
+
+      <!-- Interest Tag Selector -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Passions & Topics (Pick at least 1)</label>
+        <div class="flex flex-wrap gap-2" id="interest-chips">
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Tech">💻 Tech & Startups</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Finance">📈 Finance & Markets</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Reading">📚 Books & Philosophy</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Cinema">🎬 Cinema & Shows</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Running">🏃 Running & Fitness</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Food">🍲 Food & Coffee</span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button 
+        id="checkin-btn" 
+        class="w-full bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 font-bold text-white text-sm py-4 rounded-xl shadow-lg shadow-rose-500/25 transition-all transform active:scale-[0.99] flex items-center justify-center gap-2"
+      >
+        <span>Verify & Board Route</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </button>
+
+      <!-- Sandbox Quick Test Banner -->
+      <div class="pt-3 border-t border-slate-800/80 text-center">
+        <p class="text-xs text-slate-500">Quick sandbox test: <button type="button" onclick="fillSandbox('9999999991')" class="text-rose-400 underline font-mono">9999999991</button> or <button type="button" onclick="fillSandbox('9999999992')" class="text-rose-400 underline font-mono">9999999992</button></p>
+      </div>
+
+    </div>
+
+    <!-- Results Container (Hidden by default) -->
+    <div id="results-container" class="hidden space-y-6">
+      
+      <!-- Verified Route Header -->
+      <div class="glass rounded-2xl p-5 border-emerald-500/30 bg-emerald-950/20">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Boarding Verified</span>
+          </div>
+          <span id="route-train" class="font-mono text-xs text-white bg-slate-800 px-2.5 py-1 rounded-md font-bold">Train #----</span>
+        </div>
+        <div class="flex items-center justify-between text-sm font-bold text-white">
+          <span id="route-from" class="text-base text-white">---</span>
+          <div class="flex-1 px-4 flex items-center">
+            <div class="w-full border-t border-dashed border-slate-600"></div>
+          </div>
+          <span id="route-to" class="text-base text-white">---</span>
+        </div>
+        <div class="mt-2 text-[11px] text-slate-400 flex justify-between">
+          <span id="route-date">Date: --</span>
+          <span id="route-class">Class: --</span>
+        </div>
+      </div>
+
+      <!-- Aligned Passengers Section -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>Aligned Co-Travelers</span>
+            <span id="match-count" class="bg-rose-500/20 text-rose-400 text-xs px-2 py-0.5 rounded-full font-mono">0</span>
+          </h2>
+          <button onclick="resetCheckIn()" class="text-xs text-slate-400 hover:text-white underline">Change PNR</button>
+        </div>
+
+        <div id="match-cards" class="space-y-3">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Error Modal -->
+  <div id="error-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#121724] border border-rose-500/40 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
+      <div class="w-12 h-12 rounded-full bg-rose-500/10 text-rose-400 mx-auto flex items-center justify-center font-bold text-xl">
+        !
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-white mb-1">Check-in Failed</h3>
+        <p id="error-message" class="text-xs text-slate-400 leading-relaxed">Could not verify PNR.</p>
+      </div>
+      <button onclick="closeError()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs py-2.5 rounded-xl transition-all">
+        Dismiss
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-600">
+    Project Sushi &copy; 2026 &middot; Real-Time Verified Transit Networking
+  </footer>
+
+  <script>
+    // Configuration
+    const BACKEND_URL = "https://sushi-backend-p2dd.onrender.com/api/check-in";
+
+    let selectedIntent = "Networking";
+    let selectedInterests = ["Tech"];
+
+    // PNR Counter
+    const pnrInput = document.getElementById("pnr");
+    const pnrCounter = document.getElementById("pnr-counter");
+    pnrInput.addEventListener("input", (e) => {
+      pnrCounter.innerText = `${e.target.value.length}/10`;
+    });
+
+    // Intent Switcher
+    document.querySelectorAll(".intent-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".intent-btn").forEach(b => {
+          b.classList.remove("active", "bg-rose-500/10", "border-rose-500", "text-rose-400");
+          b.classList.add("bg-[#121722]", "border-slate-700/60", "text-slate-400");
+        });
+        btn.classList.add("active", "bg-rose-500/10", "border-rose-500", "text-rose-400");
+        btn.classList.remove("bg-[#121722]", "border-slate-700/60", "text-slate-400");
+        selectedIntent = btn.dataset.intent;
+      });
+    });
+
+    // Interest Chips Toggle
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const tag = chip.dataset.tag;
+        if (selectedInterests.includes(tag)) {
+          selectedInterests = selectedInterests.filter(t => t !== tag);
+          chip.classList.remove("border-rose-500", "bg-rose-500/10", "text-rose-400");
+          chip.classList.add("border-slate-700/60", "bg-[#121722]", "text-slate-400");
+        } else {
+          selectedInterests.push(tag);
+          chip.classList.add("border-rose-500", "bg-rose-500/10", "text-rose-400");
+          chip.classList.remove("border-slate-700/60", "bg-[#121722]", "text-slate-400");
+        }
+      });
+    });
+
+    // Pre-select Tech tag by default
+    document.querySelector('.chip[data-tag="Tech"]').classList.add("border-rose-500", "bg-rose-500/10", "text-rose-400");
+
+    function fillSandbox(pnr) {
+      pnrInput.value = pnr;
+      pnrCounter.innerText = "10/10";
+      document.getElementById("real_name").value = pnr === "9999999991" ? "Navin" : "Aishwarya";
+    }
+
+    // Submit & Call Backend
+    const checkinBtn = document.getElementById("checkin-btn");
+    checkinBtn.addEventListener("click", async () => {
+      const pnr = pnrInput.value.trim();
+      const realName = document.getElementById("real_name").value.trim() || "Traveler";
+      const age = parseInt(document.getElementById("age").value) || 24;
+      const gender = document.getElementById("gender").value;
+
+      if (pnr.length !== 10) {
+        showError("Please enter a valid 10-digit PNR number.");
+        return;
+      }
+      if (selectedInterests.length === 0) {
+        showError("Select at least one passion or topic to find matches.");
+        return;
+      }
+
+      // Loading state
+      checkinBtn.disabled = true;
+      checkinBtn.innerHTML = `
+        <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <span>Verifying Route with RailKit...</span>
+      `;
+
+      try {
+        const payload = {
+          pnr: pnr,
+          real_name: realName,
+          age: age,
+          gender: gender,
+          interests: selectedInterests,
+          intent_mode: selectedIntent
+        };
+
+        const res = await fetch(BACKEND_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.detail || "Unable to check in traveler.");
+        }
+
+        renderResults(data);
+
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        checkinBtn.disabled = false;
+        checkinBtn.innerHTML = `
+          <span>Verify & Board Route</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        `;
+      }
+    });
+
+    function renderResults(data) {
+      document.getElementById("checkin-container").classList.add("hidden");
+      document.getElementById("results-container").classList.remove("hidden");
+
+      document.getElementById("route-train").innerText = `Train #${data.train_number}`;
+      document.getElementById("route-from").innerText = data.from_station;
+      document.getElementById("route-to").innerText = data.to_station;
+      document.getElementById("route-date").innerText = `Date: ${data.journey_date}`;
+      document.getElementById("route-class").innerText = `Class: ${data.travel_class}`;
+
+      const matchCards = document.getElementById("match-cards");
+      matchCards.innerHTML = "";
+      
+      const matches = data.matches || [];
+      document.getElementById("match-count").innerText = matches.length;
+
+      if (matches.length === 0) {
+        matchCards.innerHTML = `
+          <div class="glass rounded-xl p-6 text-center text-slate-400">
+            <p class="text-sm font-medium">You are the first traveler boarded on this segment!</p>
+            <p class="text-xs text-slate-500 mt-1">We will notify you when aligned passengers board.</p>
+          </div>
+        `;
+        return;
+      }
+
+      matches.forEach(m => {
+        const card = document.createElement("div");
+        card.className = "glass rounded-xl p-4 border border-slate-800 space-y-3";
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sm text-rose-400">
+                ${m.real_name ? m.real_name[0] : 'T'}
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white">${m.real_name} <span class="text-xs font-normal text-slate-400">(${m.age}, ${m.gender})</span></div>
+                <div class="text-[11px] text-emerald-400 font-medium">Intent: ${m.intent_mode}</div>
+              </div>
+            </div>
+            <button class="bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-all shadow-md shadow-rose-500/20">
+              Say Hi
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            ${(m.interests || []).map(tag => `<span class="text-[10px] bg-slate-800/80 border border-slate-700/60 text-slate-300 px-2 py-0.5 rounded-md">${tag}</span>`).join('')}
+          </div>
+        `;
+        matchCards.appendChild(card);
+      });
+    }
+
+    function resetCheckIn() {
+      document.getElementById("results-container").classList.add("hidden");
+      document.getElementById("checkin-container").classList.remove("hidden");
+    }
+
+    function showError(msg) {
+      document.getElementById("error-message").innerText = msg;
+      document.getElementById("error-modal").classList.remove("hidden");
+    }
+
+    function closeError() {
+      document.getElementById("error-modal").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
