@@ -70,4 +70,84 @@
         </div>
         <p class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1">
           <span>🔒 Ephemeral encryption. Seat numbers are never publicly disclosed.</span>
-        </
+        </p>
+      </div>
+
+      <!-- Identity Inputs -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Display Name</label>
+          <input type="text" id="real_name" placeholder="Your name or handle" class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Age</label>
+            <input type="number" id="age" min="16" max="99" value="25" class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-3 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Gender</label>
+            <select id="gender" class="w-full bg-[#121722] border border-slate-700/80 rounded-xl px-2 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intent Mode Selector -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Transit Intent Mode</label>
+        <div class="grid grid-cols-3 gap-2" id="intent-group">
+          <button type="button" data-intent="Networking" class="intent-btn active bg-rose-500/10 border border-rose-500 text-rose-400 text-xs font-medium py-2.5 px-3 rounded-xl transition-all">
+            💼 Network
+          </button>
+          <button type="button" data-intent="Casual" class="intent-btn bg-[#121722] border border-slate-700/60 text-slate-400 text-xs font-medium py-2.5 px-3 rounded-xl transition-all hover:border-slate-500">
+            ☕ Social
+          </button>
+          <button type="button" data-intent="Dating" class="intent-btn bg-[#121722] border border-slate-700/60 text-slate-400 text-xs font-medium py-2.5 px-3 rounded-xl transition-all hover:border-slate-500">
+            ✨ Dating
+          </button>
+        </div>
+      </div>
+
+      <!-- Interest Tag Selector -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Passions & Topics (Pick at least 1)</label>
+        <div class="flex flex-wrap gap-2" id="interest-chips">
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Tech">💻 Tech & Startups</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Finance">📈 Finance & Markets</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Reading">📚 Books & Philosophy</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Cinema">🎬 Cinema & Shows</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Running">🏃 Running & Fitness</span>
+          <span class="chip cursor-pointer text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-700/60 bg-[#121722] text-slate-400 transition-all hover:border-slate-500 select-none" data-tag="Food">🍲 Food & Coffee</span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button 
+        id="checkin-btn" 
+        class="w-full bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 font-bold text-white text-sm py-4 rounded-xl shadow-lg shadow-rose-500/25 transition-all transform active:scale-[0.99] flex items-center justify-center gap-2"
+      >
+        <span>Verify & Board Route</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </button>
+
+      <!-- Sandbox Quick Test Banner (Hidden) -->
+      <div class="hidden pt-3 border-t border-slate-800/80 text-center">
+        <p class="text-xs text-slate-500">Quick sandbox test: <button type="button" onclick="fillSandbox('9999999991')" class="text-rose-400 underline font-mono">9999999991</button> or <button type="button" onclick="fillSandbox('9999999992')" class="text-rose-400 underline font-mono">9999999992</button></p>
+      </div>
+
+    </div>
+
+    <!-- Results Container (Hidden by default) -->
+    <div id="results-container" class="hidden space-y-6">
+      
+      <!-- Verified Route Header -->
+      <div class="glass rounded-2xl p-5 border-emerald-500/30 bg-emerald-950/20 shadow-lg">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Boarding Verified</span>
+          </div>
+          <span id="route-status" class="text-[10px] font-bold uppercase tracking-
